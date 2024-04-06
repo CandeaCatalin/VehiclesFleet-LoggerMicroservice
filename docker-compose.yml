@@ -1,0 +1,24 @@
+﻿version: '3.8'
+
+services:
+  loggermicroservice:
+    image: loggermicroservice
+    build:
+      context: .
+      dockerfile: LoggerMicroservice/Dockerfile
+    ports:
+      - "5112:80"
+      - "3001:443"
+    depends_on:
+      - database
+  database:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: mHDyhpoc4336HXuF0GYO
+      ACCEPT_EULA: Y
+      MSSQL_PID: Express
+      MSSQL_TCP_PORT: 1434
+      MSSQL_DATABASE: VehiclesFleet
+      MSSQL_PASSWORD: mHDyhpoc4336HXuF0GYO
+    ports:
+      - "1434:1434"
