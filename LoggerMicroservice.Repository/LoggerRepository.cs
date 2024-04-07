@@ -10,12 +10,10 @@ public class LoggerRepository:ILoggerRepository
 {
     private IServiceProvider serviceProvider;
     private ILoggerMapper loggerMapper;
-    private IJwtService jwtService;
-    public LoggerRepository(IServiceProvider serviceProvider, ILoggerMapper loggerMapper, IJwtService jwtService)
+    public LoggerRepository(IServiceProvider serviceProvider, ILoggerMapper loggerMapper)
     {
         this.serviceProvider = serviceProvider;
         this.loggerMapper = loggerMapper;
-        this.jwtService = jwtService;
     }
    
 

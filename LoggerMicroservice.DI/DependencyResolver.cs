@@ -34,7 +34,6 @@ public static class DependencyResolver
 
         RegisterSwaggerWithAuthorization(services);
         services.AddSingleton<IAppSettingsReader, AppSettingsReader>();
-        services.AddSingleton<IJwtService, JwtService>();
         services.AddSingleton<ILoggerRepository, LoggerRepository>();
         services.AddSingleton<ILoggerMapper, LoggerMapper>();
 
