@@ -19,24 +19,23 @@ public class LoggerRepository:ILoggerRepository
     }
    
 
-    public async Task LogInfo(LoggerMessage message, string? token)
+    public async Task LogInfo(string message, string? email, LogStatus status)
     {
-        if (message is null)
-        {
-            throw new Exception($"{message} is null!");
-        }
-     
-        if (String.IsNullOrEmpty(message.Message))
+        if (String.IsNullOrEmpty(message))
         {
             throw new Exception("Cannot log an empty message!");
         }
 
-        if (token is not null)
+        var loggedMessage = new LoggerMessage();
+        loggedMessage.Message = message;
+       
+
+        if (email is not null)
         {
-            message.UserEmail = jwtService.GetUserEmailFromToken(token);
+            loggedMessage.UserEmail = email;
         }
         
-        var log = loggerMapper.LogDataAccessFromDomain(message, LogStatus.Info);
+        var log = loggerMapper.LogDataAccessFromDomain(loggedMessage, status);
 
         using (var scope = serviceProvider.CreateScope())
         {
@@ -45,28 +44,4 @@ public class LoggerRepository:ILoggerRepository
             await dbContext.SaveChangesAsync();
         }
     }
-
-    public async Task LogError(LoggerMessage message)
-    {
-        if (message is null)
-        {
-            throw new Exception($"{message} is null!");
-        }
-     
-        if (String.IsNullOrEmpty(message.Message))
-        {
-            throw new Exception("Cannot log an empty message!");
-        }
-        
-        var log = loggerMapper.LogDataAccessFromDomain(message, LogStatus.Error);
-
-        using (var scope = serviceProvider.CreateScope())
-        {
-            var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-            await dbContext.Logs.AddAsync(log);
-            await dbContext.SaveChangesAsync();
-        }
-    }
- 
-    
 }

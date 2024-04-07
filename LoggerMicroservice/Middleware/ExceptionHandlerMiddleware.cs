@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using System.Text;
 using System.Text.Json;
+using LoggerMicroservice.Domain;
 using LoggerMicroservice.Domain.CustomExceptions;
 using LoggerMicroservice.Repository.Contracts;
 using Microsoft.AspNetCore.Http.Extensions;
-using LoggerMessage = LoggerMicroservice.Domain.LoggerMessage;
 
 namespace VehiclesFleet_LoggerMicroservice.Middleware;
 
@@ -77,9 +77,6 @@ public class ExceptionHandlerMiddleware
 
         result.AppendLine($"Exception: {ex}");
 
-        await loggerRepository.LogError(new LoggerMessage
-        {
-            Message = result.ToString()
-        });
+        await loggerRepository.LogInfo(result.ToString(),null, LogStatus.Error);
     }
 }

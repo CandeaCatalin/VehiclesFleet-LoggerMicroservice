@@ -31,7 +31,7 @@ public class JwtService: IJwtService
     }
    
 
-    public string GetUserEmailFromToken(string token)
+    public string GetUserEmailFromToken(string? token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
