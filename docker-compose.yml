@@ -1,5 +1,6 @@
-﻿version: '3.8'
-
+﻿# CREATE NETWORK BEFORE RUNNING DOCKER COMPOSE 
+#docker network create "vehiclesfleet-logger-net"
+version: '3.8'
 services:
   loggermicroservice:
     image: loggermicroservice
@@ -7,10 +8,14 @@ services:
       context: .
       dockerfile: LoggerMicroservice/Dockerfile
     ports:
-      - "5112:80"
-      - "3001:443"
+      - "3001:80"
     depends_on:
       - database
+    networks:
+      vehiclesfleet-logger-net:
+        aliases:
+          - logger
+          
   database:
     image: "mcr.microsoft.com/mssql/server"
     environment:
@@ -22,3 +27,9 @@ services:
       MSSQL_PASSWORD: mHDyhpoc4336HXuF0GYO
     ports:
       - "1434:1434"
+    networks:
+      vehiclesfleet-logger-net:    
+  
+networks:
+  vehiclesfleet-logger-net:
+    external: true

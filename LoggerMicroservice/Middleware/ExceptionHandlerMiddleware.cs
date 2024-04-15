@@ -61,22 +61,9 @@ public class ExceptionHandlerMiddleware
        
         result.AppendLine($"Message: {ex.Message}");
 
-        result.AppendLine($"URL: {context.Request.GetEncodedUrl()}");
-
-        result.AppendLine("Headers: ");
-        foreach (var (key, value) in context.Request.GetTypedHeaders().Headers)
-        { 
-            result.AppendLine($"{key}: {value}");
-        }
-        
-        result.AppendLine("Body: ");
-        using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8, true, 1024, true))
-        {
-            result.AppendLine(await reader.ReadToEndAsync());
-        }
 
         result.AppendLine($"Exception: {ex}");
 
-        await loggerRepository.LogInfo(result.ToString(),null, LogStatus.Error);
+        await loggerRepository.LogError(result.ToString(),"LoggerMicroservice");
     }
 }

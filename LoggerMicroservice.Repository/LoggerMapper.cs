@@ -12,7 +12,7 @@ public class LoggerMapper:ILoggerMapper
         {
             Id = Guid.NewGuid(),
             Message = loggerMessage.Message,
-            UserEmail = loggerMessage.UserEmail,
+            Source = loggerMessage.Source,
             Status = logStatus.ToString(),
             CreateTime = DateTime.Now
         };

@@ -36,6 +36,7 @@ public static class DependencyResolver
         services.AddSingleton<IAppSettingsReader, AppSettingsReader>();
         services.AddSingleton<ILoggerRepository, LoggerRepository>();
         services.AddSingleton<ILoggerMapper, LoggerMapper>();
+        services.AddSingleton<IJwtService, JwtService>();
 
 
         services.AddControllers();
@@ -63,7 +64,7 @@ public static class DependencyResolver
     {
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vehicles Fleet API", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Logger microservice API", Version = "v1" });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
