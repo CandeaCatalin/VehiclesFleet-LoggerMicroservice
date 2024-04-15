@@ -8,7 +8,6 @@ namespace VehiclesFleet_LoggerMicroservice.Controllers;
 
 [ApiController]
 [Route("logger")]
-[Authorize]
 public class LoggerController : ControllerBase
 {
     private readonly ILoggerRepository logger;
@@ -18,6 +17,7 @@ public class LoggerController : ControllerBase
     }
 
     [HttpPost("logInfo")]
+    [Authorize]
     public IActionResult LogInfo(LogInfoDto dto)
     {
         var token = GetToken();
