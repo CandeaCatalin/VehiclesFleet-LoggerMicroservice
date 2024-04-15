@@ -8,6 +8,7 @@ namespace VehiclesFleet_LoggerMicroservice.Controllers;
 
 [ApiController]
 [Route("logger")]
+[Authorize]
 public class LoggerController : ControllerBase
 {
     private readonly ILoggerRepository logger;
